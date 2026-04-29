@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-rollout
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: aceest-rollout
+  template:
+    metadata:
+      labels:
+        app: aceest-rollout
+    spec:
+      containers:
+      - name: aceest
+        image: shruthis93518/devops-assignment-2:v1
+        ports:
+        - containerPort: 5000
